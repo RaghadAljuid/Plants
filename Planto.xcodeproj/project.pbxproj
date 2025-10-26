@@ -24,9 +24,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8C51BF812EA4C03D001C45F5 /* Plants.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Plants.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C51BF8E2EA4C03E001C45F5 /* PlantsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlantsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C51BF982EA4C03E001C45F5 /* PlantsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlantsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C51BF812EA4C03D001C45F5 /* Planto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Planto.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C51BF8E2EA4C03E001C45F5 /* PlantoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlantoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C51BF982EA4C03E001C45F5 /* PlantoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlantoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -85,9 +85,9 @@
 		8C51BF822EA4C03D001C45F5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8C51BF812EA4C03D001C45F5 /* Plants.app */,
-				8C51BF8E2EA4C03E001C45F5 /* PlantsTests.xctest */,
-				8C51BF982EA4C03E001C45F5 /* PlantsUITests.xctest */,
+				8C51BF812EA4C03D001C45F5 /* Planto.app */,
+				8C51BF8E2EA4C03E001C45F5 /* PlantoTests.xctest */,
+				8C51BF982EA4C03E001C45F5 /* PlantoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,9 +95,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8C51BF802EA4C03D001C45F5 /* Plants */ = {
+		8C51BF802EA4C03D001C45F5 /* Planto */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8C51BFA22EA4C03E001C45F5 /* Build configuration list for PBXNativeTarget "Plants" */;
+			buildConfigurationList = 8C51BFA22EA4C03E001C45F5 /* Build configuration list for PBXNativeTarget "Planto" */;
 			buildPhases = (
 				8C51BF7D2EA4C03D001C45F5 /* Sources */,
 				8C51BF7E2EA4C03D001C45F5 /* Frameworks */,
@@ -110,16 +110,16 @@
 			fileSystemSynchronizedGroups = (
 				8C51BF832EA4C03D001C45F5 /* Plants */,
 			);
-			name = Plants;
+			name = Planto;
 			packageProductDependencies = (
 			);
 			productName = Plants;
-			productReference = 8C51BF812EA4C03D001C45F5 /* Plants.app */;
+			productReference = 8C51BF812EA4C03D001C45F5 /* Planto.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8C51BF8D2EA4C03E001C45F5 /* PlantsTests */ = {
+		8C51BF8D2EA4C03E001C45F5 /* PlantoTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8C51BFA52EA4C03E001C45F5 /* Build configuration list for PBXNativeTarget "PlantsTests" */;
+			buildConfigurationList = 8C51BFA52EA4C03E001C45F5 /* Build configuration list for PBXNativeTarget "PlantoTests" */;
 			buildPhases = (
 				8C51BF8A2EA4C03E001C45F5 /* Sources */,
 				8C51BF8B2EA4C03E001C45F5 /* Frameworks */,
@@ -133,16 +133,16 @@
 			fileSystemSynchronizedGroups = (
 				8C51BF912EA4C03E001C45F5 /* PlantsTests */,
 			);
-			name = PlantsTests;
+			name = PlantoTests;
 			packageProductDependencies = (
 			);
 			productName = PlantsTests;
-			productReference = 8C51BF8E2EA4C03E001C45F5 /* PlantsTests.xctest */;
+			productReference = 8C51BF8E2EA4C03E001C45F5 /* PlantoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		8C51BF972EA4C03E001C45F5 /* PlantsUITests */ = {
+		8C51BF972EA4C03E001C45F5 /* PlantoUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8C51BFA82EA4C03E001C45F5 /* Build configuration list for PBXNativeTarget "PlantsUITests" */;
+			buildConfigurationList = 8C51BFA82EA4C03E001C45F5 /* Build configuration list for PBXNativeTarget "PlantoUITests" */;
 			buildPhases = (
 				8C51BF942EA4C03E001C45F5 /* Sources */,
 				8C51BF952EA4C03E001C45F5 /* Frameworks */,
@@ -156,11 +156,11 @@
 			fileSystemSynchronizedGroups = (
 				8C51BF9B2EA4C03E001C45F5 /* PlantsUITests */,
 			);
-			name = PlantsUITests;
+			name = PlantoUITests;
 			packageProductDependencies = (
 			);
 			productName = PlantsUITests;
-			productReference = 8C51BF982EA4C03E001C45F5 /* PlantsUITests.xctest */;
+			productReference = 8C51BF982EA4C03E001C45F5 /* PlantoUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -186,7 +186,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8C51BF7C2EA4C03D001C45F5 /* Build configuration list for PBXProject "Plants" */;
+			buildConfigurationList = 8C51BF7C2EA4C03D001C45F5 /* Build configuration list for PBXProject "Planto" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -200,9 +200,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8C51BF802EA4C03D001C45F5 /* Plants */,
-				8C51BF8D2EA4C03E001C45F5 /* PlantsTests */,
-				8C51BF972EA4C03E001C45F5 /* PlantsUITests */,
+				8C51BF802EA4C03D001C45F5 /* Planto */,
+				8C51BF8D2EA4C03E001C45F5 /* PlantoTests */,
+				8C51BF972EA4C03E001C45F5 /* PlantoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,12 +258,12 @@
 /* Begin PBXTargetDependency section */
 		8C51BF902EA4C03E001C45F5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8C51BF802EA4C03D001C45F5 /* Plants */;
+			target = 8C51BF802EA4C03D001C45F5 /* Planto */;
 			targetProxy = 8C51BF8F2EA4C03E001C45F5 /* PBXContainerItemProxy */;
 		};
 		8C51BF9A2EA4C03E001C45F5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8C51BF802EA4C03D001C45F5 /* Plants */;
+			target = 8C51BF802EA4C03D001C45F5 /* Planto */;
 			targetProxy = 8C51BF992EA4C03E001C45F5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -398,6 +398,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Planto;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -408,6 +409,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -442,6 +444,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Planto;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -452,6 +455,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -494,7 +498,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Plants.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Plants";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Planto.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Planto";
 				XROS_DEPLOYMENT_TARGET = 26.0;
 			};
 			name = Debug;
@@ -520,7 +524,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Plants.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Plants";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Planto.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Planto";
 				XROS_DEPLOYMENT_TARGET = 26.0;
 			};
 			name = Release;
@@ -578,7 +582,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8C51BF7C2EA4C03D001C45F5 /* Build configuration list for PBXProject "Plants" */ = {
+		8C51BF7C2EA4C03D001C45F5 /* Build configuration list for PBXProject "Planto" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8C51BFA02EA4C03E001C45F5 /* Debug */,
@@ -587,7 +591,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8C51BFA22EA4C03E001C45F5 /* Build configuration list for PBXNativeTarget "Plants" */ = {
+		8C51BFA22EA4C03E001C45F5 /* Build configuration list for PBXNativeTarget "Planto" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8C51BFA32EA4C03E001C45F5 /* Debug */,
@@ -596,7 +600,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8C51BFA52EA4C03E001C45F5 /* Build configuration list for PBXNativeTarget "PlantsTests" */ = {
+		8C51BFA52EA4C03E001C45F5 /* Build configuration list for PBXNativeTarget "PlantoTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8C51BFA62EA4C03E001C45F5 /* Debug */,
@@ -605,7 +609,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8C51BFA82EA4C03E001C45F5 /* Build configuration list for PBXNativeTarget "PlantsUITests" */ = {
+		8C51BFA82EA4C03E001C45F5 /* Build configuration list for PBXNativeTarget "PlantoUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8C51BFA92EA4C03E001C45F5 /* Debug */,

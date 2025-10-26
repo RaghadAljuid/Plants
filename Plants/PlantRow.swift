@@ -10,13 +10,12 @@ import SwiftUI
 struct PlantRow: View {
     let plant: Plant
 
-    // ألوان تمرّرينها من MyPlantsView
+    // ألوان  من MyPlantsView
     let chipBG: Color
     let chipSunText: Color
     let chipWaterText: Color
     let checkActive: Color
 
-    // فعل عند الضغط على زر الماء (التبديل)
     var onToggleWater: () -> Void
 
     var body: some View {

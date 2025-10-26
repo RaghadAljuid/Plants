@@ -9,9 +9,8 @@ import SwiftUI
 struct MyPlantsView: View {
     @Binding var plants: [Plant]
     @State private var showSetReminder = false
-
-    // بدل showEditSheet + editIndex نستخدم عنصر اختياري
     @State private var editingPlant: Plant? = nil
+    @State private var openRow: UUID? = nil
 
     // Colors
     private let bg = Color.black
@@ -41,54 +40,64 @@ struct MyPlantsView: View {
                     .padding(.top, 8)
                     .padding(.bottom, 14)
 
-                // Status + progress
-                VStack(alignment: .leading, spacing: 12) {
-                    Text(statusText)
-                        .foregroundColor(.white)
-                        .font(.system(size: 17, weight: .semibold))
-                        .frame(maxWidth: .infinity, alignment: .center)
+                // إذا الكل مروّي اليوم أعرض All Done و"بدون" الشريط العلوي
+                if allWatered && !plants.isEmpty {
+                    AllDoneView()
+                        .padding(.top, 8)
+                        .transition(.opacity)
+                    Spacer(minLength: 40)
+                } else {
+                    // Status + progress (يظهر فقط إذا ما اكتملت)
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text(statusText)
+                            .foregroundColor(.white)
+                            .font(.system(size: 17, weight: .semibold))
+                            .frame(maxWidth: .infinity, alignment: .center)
 
-                    GeometryReader { geo in
-                        ZStack(alignment: .leading) {
-                            Capsule().fill(progressIdle).frame(height: 10)
-                            Capsule()
-                                .fill(progressActive)
-                                .frame(width: max(0, geo.size.width * progressValue), height: 10)
-                                .animation(.spring(response: 0.35, dampingFraction: 0.85), value: progressValue)
+                        GeometryReader { geo in
+                            ZStack(alignment: .leading) {
+                                Capsule().fill(progressIdle).frame(height: 10)
+                                Capsule()
+                                    .fill(progressActive)
+                                    .frame(width: max(0, geo.size.width * progressValue), height: 10)
+                                    .animation(.spring(response: 0.35, dampingFraction: 0.85), value: progressValue)
+                            }
                         }
+                        .frame(height: 10)
                     }
-                    .frame(height: 10)
-                }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 8)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 8)
 
-                // List
-                ScrollView {
-                    LazyVStack(spacing: 0) {
-                        ForEach(sortedPlants) { plant in
-                            PlantRow(
-                                plant: plant,
-                                chipBG: chipBG,
-                                chipSunText: chipSunText,
-                                chipWaterText: chipWaterText,
-                                checkActive: checkActive
-                            ) {
-                                withAnimation(.spring(response: 0.3, dampingFraction: 0.85)) {
-                                    toggleWater(for: plant)
+                    // List
+                    ScrollView {
+                        LazyVStack(spacing: 0) {
+                            ForEach(sortedPlants) { plant in
+                                SwipeableRow(
+                                    id: plant.id,
+                                    openRow: $openRow,
+                                    onDelete: { delete(plant: plant) }   // نفس دالة الحذف اللي عندك
+                                ) {
+                                    PlantRow(
+                                        plant: plant,
+                                        chipBG: chipBG,
+                                        chipSunText: chipSunText,
+                                        chipWaterText: chipWaterText,
+                                        checkActive: checkActive
+                                    ) {
+                                        toggleWater(for: plant)
+                                    }
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 12)
+                                    .contentShape(Rectangle())
+                                    .onTapGesture { editingPlant = plant }
                                 }
+
+                                Divider()
+                                    .overlay(Color.white.opacity(0.12))
+                                    .padding(.leading, 16)
                             }
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 12)
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                // افتح شاشة التعديل لهذا العنصر
-                                editingPlant = plant
-                            }
-                            Divider()
-                                .overlay(Color.white.opacity(0.12))
-                                .padding(.leading, 16)
+                            Spacer(minLength: 40)
                         }
-                        Spacer(minLength: 40)
                     }
                 }
 
@@ -123,21 +132,16 @@ struct MyPlantsView: View {
             .presentationDetents([.large])
             .presentationCornerRadius(28)
         }
-        // تعديل/حذف باستخدام item آمن
+        // تعديل/حذف
         .sheet(item: $editingPlant) { plant in
-            // احصل على index الحالي (قد يتغير بسبب حذف/فرز)
             let currentIndex = plants.firstIndex(of: plant)
             SetReminderView(
                 existing: plant,
                 onSave: { updated in
-                    if let idx = currentIndex ?? plants.firstIndex(of: plant) {
-                        plants[idx] = updated
-                    }
+                    if let idx = currentIndex ?? plants.firstIndex(of: plant) { plants[idx] = updated }
                 },
                 onDelete: {
-                    if let idx = currentIndex ?? plants.firstIndex(of: plant) {
-                        plants.remove(at: idx)
-                    }
+                    if let idx = currentIndex ?? plants.firstIndex(of: plant) { plants.remove(at: idx) }
                 }
             )
             .presentationDetents([.large])
@@ -152,14 +156,17 @@ struct MyPlantsView: View {
         guard !plants.isEmpty else { return 0 }
         return CGFloat(wateredCount) / CGFloat(plants.count)
     }
+    private var allWatered: Bool {
+        !plants.isEmpty && plants.allSatisfy { $0.isWateredToday }
+    }
 
     private var statusText: String {
+        if plants.isEmpty { return "Add your first plant 🌱" }
         if wateredCount == 0 { return "Your plants are waiting for a sip 💦" }
         else if wateredCount >= 3 { return "3 of your plants feel loved today ✨" }
         else { return "\(wateredCount) of your plants feel loved today ✨" }
     }
 
-    // Spider دائمًا في النهاية
     private var sortedPlants: [Plant] {
         let nonSpider = plants.filter { $0.name.caseInsensitiveCompare("Spider") != .orderedSame }
         let spider    = plants.filter { $0.name.caseInsensitiveCompare("Spider") == .orderedSame }
@@ -169,6 +176,37 @@ struct MyPlantsView: View {
     private func toggleWater(for plant: Plant) {
         if let idx = plants.firstIndex(of: plant) {
             plants[idx].isWateredToday.toggle()
+        }
+    }
+
+    // دالة الحذف (سوايب)
+    private func delete(plant: Plant) {
+        if let idx = plants.firstIndex(of: plant) {
+            withAnimation(.easeInOut) {
+                plants.remove(at: idx)
+            }
+        }
+    }
+
+    // شاشة “All Done!”
+    private struct AllDoneView: View {
+        var body: some View {
+            VStack(spacing: 20) {
+                Image("Alldone")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 180, height: 180)
+                    .shadow(radius: 12, y: 6)
+
+                Text("All Done! 🎉")
+                    .font(.system(size: 22, weight: .semibold))
+                    .foregroundColor(.white)
+
+                Text("All Reminders Completed")
+                    .font(.system(size: 16))
+                    .foregroundColor(.white.opacity(0.7))
+            }
+            .frame(maxWidth: .infinity)
         }
     }
 }
