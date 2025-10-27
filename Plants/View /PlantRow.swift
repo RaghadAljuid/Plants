@@ -48,19 +48,38 @@ struct PlantRow: View {
 
                 // الشرائط (Light + Water)
                 HStack(spacing: 10) {
-                    ChipView(text: plant.light, textColor: chipSunText, bg: chipBG, icon: "sun.max")
-                    ChipView(text: plant.waterAmount, textColor: chipWaterText, bg: chipBG, icon: "drop")
+                    ChipView(text: plant.light, textColor: chipSunText, textIconColor: chipSunText.opacity(0.95), bg: chipBG, icon: "sun.max")
+                    ChipView(text: plant.waterAmount, textColor: chipWaterText, textIconColor: chipWaterText.opacity(0.95), bg: chipBG, icon: "drop")
                 }
             }
 
             Spacer(minLength: 0)
         }
+        // تأثير بصري خفي حسب حالة السقي
+        .padding(.vertical, 2)
+        .background(
+            // للمسقي: طبقة خفيفة جداً
+            (plant.isWateredToday ? Color.white.opacity(0.02) : Color.clear)
+                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+        )
+        .overlay(
+            // خط خارجي شبه معدوم للمسقي فقط
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .stroke(plant.isWateredToday ? Color.white.opacity(0.05) : Color.clear, lineWidth: 1)
+        )
+        // ظل خفيف جداً أخضر للمسقي، وظل شبه معدوم لغير المسقي
+        .shadow(color: plant.isWateredToday ? checkActive.opacity(0.12) : .black.opacity(0.15),
+                radius: plant.isWateredToday ? 6 : 4,
+                x: 0, y: plant.isWateredToday ? 3 : 2)
+        .opacity(plant.isWateredToday ? 0.92 : 1.0)
+        .animation(.spring(response: 0.28, dampingFraction: 0.95), value: plant.isWateredToday)
     }
 }
 
 private struct ChipView: View {
     let text: String
     let textColor: Color
+    let textIconColor: Color
     let bg: Color
     let icon: String
 
@@ -68,7 +87,7 @@ private struct ChipView: View {
         HStack(spacing: 6) {
             Image(systemName: icon)
                 .font(.system(size: 12, weight: .semibold))
-                .foregroundColor(textColor.opacity(0.95))
+                .foregroundColor(textIconColor)
             Text(text)
                 .font(.system(size: 13, weight: .semibold))
                 .foregroundColor(textColor)

@@ -13,4 +13,8 @@ struct Plant: Identifiable, Equatable {
     var light: String
     var waterAmount: String
     var isWateredToday: Bool = false
+
+    // جديد:
+    var wateringDays: String = "Every day"
+    var startTrackingDate: Date? = nil
 }

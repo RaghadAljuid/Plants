@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct MyPlantsView: View {
-    @Binding var plants: [Plant]
+    @ObservedObject var viewModel: PlantViewModel   // ← بدلاً من @Binding [Plant]
     @State private var showSetReminder = false
     @State private var editingPlant: Plant? = nil
     @State private var openRow: UUID? = nil
@@ -41,11 +41,17 @@ struct MyPlantsView: View {
                     .padding(.bottom, 14)
 
                 // إذا الكل مروّي اليوم أعرض All Done و"بدون" الشريط العلوي
-                if allWatered && !plants.isEmpty {
-                    AllDoneView()
-                        .padding(.top, 8)
-                        .transition(.opacity)
-                    Spacer(minLength: 40)
+                if allWatered && !viewModel.plants.isEmpty {
+                    GeometryReader { geo in
+                        VStack(spacing: 0) {
+                            Spacer().frame(height: geo.size.height * 0.18)
+                            AllDoneView()
+                            Spacer().frame(height: geo.size.height * 0.18)
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
+                    .transition(.opacity)
+                    .frame(maxHeight: .infinity)
                 } else {
                     // Status + progress (يظهر فقط إذا ما اكتملت)
                     VStack(alignment: .leading, spacing: 12) {
@@ -75,7 +81,7 @@ struct MyPlantsView: View {
                                 SwipeableRow(
                                     id: plant.id,
                                     openRow: $openRow,
-                                    onDelete: { delete(plant: plant) }   // نفس دالة الحذف اللي عندك
+                                    onDelete: { delete(plant: plant) }   // ← عبر دالة تستخدم الـ ViewModel
                                 ) {
                                     PlantRow(
                                         plant: plant,
@@ -84,7 +90,7 @@ struct MyPlantsView: View {
                                         chipWaterText: chipWaterText,
                                         checkActive: checkActive
                                     ) {
-                                        toggleWater(for: plant)
+                                        toggleWater(for: plant)          // ← عبر الـ ViewModel
                                     }
                                     .padding(.horizontal, 16)
                                     .padding(.vertical, 12)
@@ -127,21 +133,26 @@ struct MyPlantsView: View {
         // إضافة جديدة
         .sheet(isPresented: $showSetReminder) {
             SetReminderView { newPlant in
-                plants.append(newPlant)
+                viewModel.addPlant(plant: newPlant)   // ← إضافة عبر الـ ViewModel
             }
             .presentationDetents([.large])
             .presentationCornerRadius(28)
         }
         // تعديل/حذف
         .sheet(item: $editingPlant) { plant in
-            let currentIndex = plants.firstIndex(of: plant)
+            let currentIndex = viewModel.plants.firstIndex(of: plant)
             SetReminderView(
                 existing: plant,
                 onSave: { updated in
-                    if let idx = currentIndex ?? plants.firstIndex(of: plant) { plants[idx] = updated }
+                    // تحديث العنصر في الـ ViewModel عبر معرّفه
+                    let targetID = currentIndex.flatMap { _ in plant.id } ?? plant.id
+                    viewModel.updatePlant(id: targetID, with: updated)
                 },
                 onDelete: {
-                    if let idx = currentIndex ?? plants.firstIndex(of: plant) { plants.remove(at: idx) }
+                    if let idx = currentIndex ?? viewModel.plants.firstIndex(of: plant) {
+                        let toDelete = viewModel.plants[idx]
+                        viewModel.deletePlant(plant: toDelete)
+                    }
                 }
             )
             .presentationDetents([.large])
@@ -151,11 +162,15 @@ struct MyPlantsView: View {
     }
 
     // MARK: - Helpers
+    private var plants: [Plant] { viewModel.plants }
+
     private var wateredCount: Int { plants.filter { $0.isWateredToday }.count }
+
     private var progressValue: CGFloat {
         guard !plants.isEmpty else { return 0 }
         return CGFloat(wateredCount) / CGFloat(plants.count)
     }
+
     private var allWatered: Bool {
         !plants.isEmpty && plants.allSatisfy { $0.isWateredToday }
     }
@@ -167,39 +182,40 @@ struct MyPlantsView: View {
         else { return "\(wateredCount) of your plants feel loved today ✨" }
     }
 
+    // ترتيب: غير المسقي أولاً، ثم المسقي، وSpider دائماً بالنهاية
     private var sortedPlants: [Plant] {
-        let nonSpider = plants.filter { $0.name.caseInsensitiveCompare("Spider") != .orderedSame }
+        let notSpider = plants.filter { $0.name.caseInsensitiveCompare("Spider") != .orderedSame }
         let spider    = plants.filter { $0.name.caseInsensitiveCompare("Spider") == .orderedSame }
-        return nonSpider + spider
+
+        let unwatered = notSpider.filter { !$0.isWateredToday }
+        let watered   = notSpider.filter {  $0.isWateredToday }
+
+        return unwatered + watered + spider
     }
 
     private func toggleWater(for plant: Plant) {
-        if let idx = plants.firstIndex(of: plant) {
-            plants[idx].isWateredToday.toggle()
-        }
+        viewModel.toggleWater(for: plant)   // ← عبر الـ ViewModel
     }
 
     // دالة الحذف (سوايب)
     private func delete(plant: Plant) {
-        if let idx = plants.firstIndex(of: plant) {
-            withAnimation(.easeInOut) {
-                plants.remove(at: idx)
-            }
+        withAnimation(.easeInOut) {
+            viewModel.deletePlant(plant: plant)   // ← عبر الـ ViewModel
         }
     }
 
     // شاشة “All Done!”
     private struct AllDoneView: View {
         var body: some View {
-            VStack(spacing: 20) {
+            VStack(spacing: 24) {
                 Image("Alldone")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 180, height: 180)
+                    .frame(width: 220, height: 220)
                     .shadow(radius: 12, y: 6)
 
                 Text("All Done! 🎉")
-                    .font(.system(size: 22, weight: .semibold))
+                    .font(.system(size: 34, weight: .semibold))
                     .foregroundColor(.white)
 
                 Text("All Reminders Completed")

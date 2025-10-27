@@ -44,7 +44,7 @@ struct SetReminderView: View {
         _plantName    = State(initialValue: existing?.name ?? "")
         _room         = State(initialValue: existing?.room ?? "Bedroom")
         _light        = State(initialValue: existing?.light ?? "Full Sun")
-        _wateringDays = State(initialValue: "Every day")
+        _wateringDays = State(initialValue: existing?.wateringDays ?? "Every day")
         _waterAmount  = State(initialValue: existing?.waterAmount ?? "20–50 ml")
     }
 
@@ -177,10 +177,18 @@ struct SetReminderView: View {
         let name = plantName.trimmingCharacters(in: .whitespacesAndNewlines)
         let finalName = name.isEmpty ? (existing?.name ?? "Plant") : name
         var updated = existing ?? Plant(name: finalName, room: room, light: light, waterAmount: waterAmount)
+
         updated.name = finalName
         updated.room = room
         updated.light = light
         updated.waterAmount = waterAmount
+
+        // جديد: حفظ تكرار السقي
+        updated.wateringDays = wateringDays
+
+        // عند الحفظ نبدأ تتبع الوقت
+        updated.startTrackingDate = Date()
+
         onSave?(updated)
         dismiss()
     }

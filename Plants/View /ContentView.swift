@@ -8,14 +8,14 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var showReminderSheet = false
-    @State private var plants: [Plant] = []   // ← النباتات الحقيقية للمستخدم
+    @StateObject private var viewModel = PlantViewModel()   // ← ربط بالـ ViewModel
 
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
 
             // إذا ما فيه نباتات: أعرض شاشة البداية
-            if plants.isEmpty {
+            if viewModel.plants.isEmpty {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
 
@@ -86,7 +86,7 @@ struct ContentView: View {
                 .sheet(isPresented: $showReminderSheet) {
                     // عند الحفظ: أضف النبتة وانتقل تلقائيًا لقائمة النباتات
                     SetReminderView { newPlant in
-                        plants.append(newPlant)
+                        viewModel.addPlant(plant: newPlant)   // ← عبر الـ ViewModel
                     }
                     .presentationDetents([.medium, .large])
                     .presentationCornerRadius(28)
@@ -95,11 +95,14 @@ struct ContentView: View {
 
             } else {
                 // إذا فيه نباتات: أعرض شاشة MyPlants
-                MyPlantsView(plants: $plants)
+                MyPlantsView(viewModel: viewModel)   // ← تمرير الـ ViewModel
                     .transition(.opacity.combined(with: .move(edge: .trailing)))
             }
         }
         .preferredColorScheme(.dark)
+        .onAppear {
+            NotificationManager.shared.requestAuthorization()
+        }
     }
 }
 
