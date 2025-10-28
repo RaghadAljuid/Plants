@@ -40,7 +40,7 @@ struct SwipeableRow<Content: View>: View {
 
             // المحتوى الأمامي
             content()
-                .background(Color.black) // نفس خلفيتك
+                .background(Color.black) // نفس خلفيتي
                 .offset(x: offsetX)
                 .gesture(drag)
                 .onChange(of: openRow) { _, new in

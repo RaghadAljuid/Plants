@@ -194,7 +194,7 @@ struct SetReminderView: View {
     }
 }
 
-// MARK: - Rounded Card (Solid 2C2C2E)
+//  Rounded Card
 struct RoundedSection<Content: View>: View {
     let content: Content
     init(@ViewBuilder content: () -> Content) { self.content = content() }
@@ -205,7 +205,7 @@ struct RoundedSection<Content: View>: View {
     }
 }
 
-// MARK: - Row Button
+// Row Button
 struct RowButton: View {
     var icon: String
     var label: String
@@ -237,7 +237,7 @@ struct RowButton: View {
     }
 }
 
-// MARK: - Generic Option Sheet (Glass)
+// Generic Option Sheet (Glass)
 struct OptionSheet: View {
     let title: String
     let options: [String]
@@ -281,13 +281,13 @@ struct OptionSheet: View {
     }
 }
 
-// MARK: - Data
+// Data
 enum Rooms { static let all = ["Bedroom","Living Room","Kitchen","Balcony","Bathroom"] }
 enum Lights { static let all = ["Full Sun","Partial Sun","Low Light"] }
 enum WateringDays { static let all = ["Every day","Every 2 days","Every 3 days","Once a week","Every 10 days","Every 2 weeks"] }
 enum WaterAmounts { static let all = ["20–50 ml","50–100 ml","100–200 ml","200–300 ml"] }
 
-// MARK: - Helpers
+//  Helpers
 extension View {
     func placeholder<Content: View>(
         when shouldShow: Bool,
@@ -336,7 +336,7 @@ extension View {
     }
 }
 
-// MARK: - Preview
+//  Preview
 #Preview {
     SetReminderView()
 }

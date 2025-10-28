@@ -14,7 +14,6 @@ final class NotificationManager {
 
     func requestAuthorization() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { _, _ in
-            // بإمكانك التعامل مع الأخطاء/النتيجة عند الحاجة
         }
     }
 

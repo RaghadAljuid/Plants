@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct MyPlantsView: View {
-    @ObservedObject var viewModel: PlantViewModel   // ← بدلاً من @Binding [Plant]
+    @ObservedObject var viewModel: PlantViewModel   
     @State private var showSetReminder = false
     @State private var editingPlant: Plant? = nil
     @State private var openRow: UUID? = nil
@@ -161,7 +161,7 @@ struct MyPlantsView: View {
         .preferredColorScheme(.dark)
     }
 
-    // MARK: - Helpers
+    // Helpers
     private var plants: [Plant] { viewModel.plants }
 
     private var wateredCount: Int { plants.filter { $0.isWateredToday }.count }
@@ -174,7 +174,7 @@ struct MyPlantsView: View {
     private var allWatered: Bool {
         !plants.isEmpty && plants.allSatisfy { $0.isWateredToday }
     }
-
+     //توب لاين
     private var statusText: String {
         if plants.isEmpty { return "Add your first plant 🌱" }
         if wateredCount == 0 { return "Your plants are waiting for a sip 💦" }
@@ -182,7 +182,7 @@ struct MyPlantsView: View {
         else { return "\(wateredCount) of your plants feel loved today ✨" }
     }
 
-    // ترتيب: غير المسقي أولاً، ثم المسقي، وSpider دائماً بالنهاية
+    // ترتيب
     private var sortedPlants: [Plant] {
         let notSpider = plants.filter { $0.name.caseInsensitiveCompare("Spider") != .orderedSame }
         let spider    = plants.filter { $0.name.caseInsensitiveCompare("Spider") == .orderedSame }
@@ -200,11 +200,11 @@ struct MyPlantsView: View {
     // دالة الحذف (سوايب)
     private func delete(plant: Plant) {
         withAnimation(.easeInOut) {
-            viewModel.deletePlant(plant: plant)   // ← عبر الـ ViewModel
+            viewModel.deletePlant(plant: plant)   // ← عبر ال ViewModel
         }
     }
 
-    // شاشة “All Done!”
+    // شاشة All Done!
     private struct AllDoneView: View {
         var body: some View {
             VStack(spacing: 24) {
