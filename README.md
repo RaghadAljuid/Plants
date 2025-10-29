@@ -1,5 +1,7 @@
 # Plant Care Reminder App🪴
 
+<img width="880" height="436" alt="Image" src="https://github.com/user-attachments/assets/a3754a0b-47a2-4c06-afa4-a090902bd6ed" />
+
 ## Purpose
 
 The **Plant Care Reminder App** is designed to help plant owners manage the care of their plants efficiently by setting personalized reminders for each plant. This app allows users to track and complete plant care tasks, ensuring that their plants receive the attention they need on time.
